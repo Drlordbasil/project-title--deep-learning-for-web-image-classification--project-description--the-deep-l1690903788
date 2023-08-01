@@ -1,0 +1,4 @@
+The package requirements for this program are:
+- requests
+- beautifulsoup4
+- tensorflow
