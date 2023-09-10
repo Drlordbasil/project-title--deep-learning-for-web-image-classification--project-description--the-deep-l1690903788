@@ -14,10 +14,10 @@ class WebScraper:
         try:
             # Make a GET request to the URL
             response = requests.get(self.url)
-        
+
             # Raise an exception if the request fails
             response.raise_for_status()
-        
+
             # Create a BeautifulSoup object to parse the HTML content
             soup = BeautifulSoup(response.content, "html.parser")
 
@@ -35,7 +35,7 @@ class WebScraper:
 
                 # Make a GET request to the image URL
                 image_response = requests.get(image_url)
-            
+
                 # Raise an exception if the image request fails
                 image_response.raise_for_status()
 
@@ -81,7 +81,7 @@ class WebImageClassification:
         # Initialize the web scraper and scrape images from the URL
         web_scraper = WebScraper(self.url)
         web_scraper.scrape_images(self.save_dir)
-        
+
         # Initialize the image classifier and classify each image in the save directory
         image_classifier = ImageClassifier(self.model_path)
         image_files = os.listdir(self.save_dir)
@@ -98,7 +98,8 @@ def main():
     model_path = "model.h5"  # Replace with the actual model path
 
     # Initialize the web image classification program and run it
-    web_image_classification = WebImageClassification(url, save_dir, model_path)
+    web_image_classification = WebImageClassification(
+        url, save_dir, model_path)
     web_image_classification.run()
 
 
