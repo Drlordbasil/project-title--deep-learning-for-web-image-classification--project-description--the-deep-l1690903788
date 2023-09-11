@@ -1,9 +1,9 @@
 import requests
-from bs4 import BeautifulSoup
 import os
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.xception import preprocess_input, decode_predictions
+from bs4 import BeautifulSoup
 
 
 class WebScraper:
@@ -12,18 +12,14 @@ class WebScraper:
 
     def scrape_images(self, save_dir):
         try:
-            # Make a GET request to the URL
             response = requests.get(self.url)
             response.raise_for_status()
 
             soup = BeautifulSoup(response.content, "html.parser")
-
-            # Find all image tags in the HTML
             image_tags = soup.find_all("img")
 
             os.makedirs(save_dir, exist_ok=True)
 
-            # Download and save each image
             for i, image_tag in enumerate(image_tags):
                 image_url = image_tag["src"]
                 image_file = f"image{i}.jpg"
@@ -35,7 +31,7 @@ class WebScraper:
                 with open(image_path, "wb") as f:
                     f.write(image_response.content)
 
-            print("Images successfully scraped and saved!")
+            print("Images scraped and saved!")
 
         except requests.exceptions.RequestException as e:
             print(f"Failed to scrape images. Error: {str(e)}")
